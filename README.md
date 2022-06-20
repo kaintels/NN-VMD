@@ -2,7 +2,7 @@
 
 ## How to use
 
-1. Data Download from ```timeseriesclassification```
+1. ECG5000 Data download from ```timeseriesclassification```
 
 ```execute ./data.bat```
 
@@ -10,10 +10,10 @@
 
 ```pip install -r requirements.txt```
 
-3. execute python file
+3. Execute python file
 
 ```python tf_main.py``` or ```python th_main.py```
 
-4. you can modify VMD setting or AI model via 
+4. You can modify VMD setting or AI model via 
 
 ```./utils/util.py``` and ```./models/model.py```
