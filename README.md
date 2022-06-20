@@ -10,10 +10,15 @@
 
 ```pip install -r requirements.txt```
 
-3. Execute python file
+3. Execute python file (tensorflow or pytorch)
 
 ```python tf_main.py``` or ```python th_main.py```
 
 4. You can modify VMD setting or AI model via 
 
 ```./utils/util.py``` and ```./models/model.py```
+
+## Plan
+
+- [ ] Graph neural nets + Shallow neural net
+- [ ] Multi-task learning (e.g. decomposition and classification task)
