@@ -4,7 +4,7 @@
 
 1. ECG5000 Data download from ```timeseriesclassification```
 
-```execute ./data.bat```
+Execute ```./data.bat```
 
 2. Install library using ```requirements.txt```
 
