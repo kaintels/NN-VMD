@@ -20,5 +20,5 @@
 
 ## Plan
 
-- [ ] Graph neural nets + Shallow neural net
+- [ ] Graph neural nets + Shallow neural nets
 - [ ] Multi-task learning (e.g. decomposition and classification task)
