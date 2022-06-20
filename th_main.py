@@ -46,13 +46,13 @@ for i in range(EPOCH):
     if i % 10 == 0:
         print("epoch ", avg_cost)
 
-model.eval()
-
 imf1_s = []
 imf2_s = []
 imf3_s = []
 
 imf_all = []
+
+model.eval()
 with torch.no_grad(): 
     correct = 0
     total = 0
