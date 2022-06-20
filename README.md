@@ -12,4 +12,4 @@
 
 3. execute python file
 
-```python tf_main.py``` or ```python th_main.py)```
+```python tf_main.py``` or ```python th_main.py```
