@@ -10,13 +10,17 @@ Execute ```./data.bat```
 
 ```pip install -r requirements.txt```
 
-3. Execute python file (tensorflow or pytorch)
+3. Execute julia file for VMD process (you can find preprocessed data (.mat file))
 
-```python tf_main.py``` or ```python th_main.py```
+```julia utils/preprocessing.jl (required PyCall.jl and VMD.jl)```
 
-4. You can modify VMD setting or AI model via 
+4. Execute python file
 
-```./utils/util.py``` and ```./models/model.py```
+```python main.py```
+
+5. You can modify VMD setting or AI model via 
+
+```./utils/util.py``` and ```./models/model.py``` and ```./utils/preprocessing.jl```
 
 ## Plan
 
