@@ -1,7 +1,5 @@
-from vmdpy import VMD  
 import numpy as np
 import torch
-import tensorflow as tf
 import random
 import os
 
@@ -43,10 +41,3 @@ def seed_everything_th(num):
     torch.backends.cudnn.benchmark = False
     np.random.seed(num)
     random.seed(num)
-
-def seed_everything_tf(num):
-    os.environ['PYTHONHASHSEED'] = str(num)
-    random.seed(num)
-    tf.random.set_seed(num)
-    np.random.seed(num)
-
