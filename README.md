@@ -20,7 +20,7 @@ Execute ```./data.bat```
 
 5. You can modify VMD setting or AI model via 
 
-```./utils/util.py``` and ```./models/model.py``` and ```./utils/preprocessing.jl```
+```./utils/util.py``` and ```./utils/preprocessing.jl``` and ```./models/model.py```
 
 ## Plan
 
