@@ -2,6 +2,4 @@ scipy
 numpy
 pandas
 scikit-learn
-tensorflow==2.7.0
 torch==1.11.0
-vmdpy==0.2
