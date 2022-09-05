@@ -1,21 +1,21 @@
+import torch
+from torch.utils.data import TensorDataset
+import random
 import numpy as np  
 import matplotlib.pyplot as plt  
 import pandas as pd
 import numpy as np
-from scipy.io import arff
-import torch
+from scipy.io import arff, loadmat
 from sklearn.model_selection import train_test_split
-import random
-from torch.utils.data import TensorDataset 
 from utils.util import seed_everything_th, weight_init_xavier_uniform
 from models.model import VMDNet
-from scipy.io import loadmat
+import subprocess
 
 EPOCH = 100
 seed = 123456
 seed_everything_th(seed)
 
-
+subprocess.run("julia ./utils/preprocessing.jl")
 
 input_tr = arff.loadarff("./dataset/ECG5000_TRAIN.arff")
 input_tr = pd.DataFrame(input_tr[0], dtype=np.float32).values[:,:140].reshape(500, 1, 140)
