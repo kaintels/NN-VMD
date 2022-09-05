@@ -1,29 +1,6 @@
 import numpy as np
 import torch
 import random
-import os
-
-def vmd_execute(data, is_torch=False):
-    signal = data.values[:,:140]
-
-    alpha = 2000       # moderate bandwidth constraint  
-    tau = 0.           # noise-tolerance (no strict fidelity enforcement)  
-    K = 3              # 3 modes  
-    DC = 0             # no DC part imposed  
-    init = 1           # initialize omegas uniformly  
-    tol = 1e-7  
-
-    output = []
-    for i in range(len(data)):
-        u, u_hat, omega = VMD(signal[i].reshape(140, -1), alpha, tau, K, DC, init, tol)
-        output.append(u.T)
-    signal = np.expand_dims(signal, 2)
-    output = np.array(output)
-    if is_torch:
-        signal = np.swapaxes(signal, 2, 1)
-        output = np.swapaxes(output, 2, 1)
-
-    return signal, output
 
 def weight_init_xavier_uniform(submodule):
     if isinstance(submodule, torch.nn.Conv1d):
