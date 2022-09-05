@@ -10,15 +10,11 @@ Execute ```./data.bat```
 
 ```pip install -r requirements.txt```
 
-3. Execute julia file for VMD process (you can find preprocessed data (.mat file))
+3. Execute python file
 
-```julia utils/preprocessing.jl (required PyCall.jl and VMD.jl)```
+```python main.py (required julia, PyCall.jl and VMD.jl)```
 
-4. Execute python file
-
-```python main.py```
-
-5. You can modify VMD setting or AI model via 
+4. You can modify VMD setting or AI model via 
 
 ```./utils/util.py``` and ```./utils/preprocessing.jl``` and ```./models/model.py```
 
