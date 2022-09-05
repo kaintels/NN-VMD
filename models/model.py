@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 class VMDNet(nn.Module):
     def __init__(self):
@@ -13,9 +12,9 @@ class VMDNet(nn.Module):
         
     def forward(self, x):
         x = self.conv1(x)
-        x = F.sigmoid(x)
+        x = torch.sigmoid(x)
         x = self.conv2(x)
-        x = F.sigmoid(x)
+        x = torch.sigmoid(x)
         x = self.flatten(x)
         x = self.dense(x)
         x = x.reshape(-1, 3, 140)
