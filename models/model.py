@@ -19,3 +19,50 @@ class VMDNet(nn.Module):
         x = self.dense(x)
         x = x.reshape(-1, 3, 140)
         return x
+
+
+class VMD_VAE_DNN(nn.Module):
+    def __init__(self):
+        super(VMD_VAE_DNN, self).__init__()
+
+        self.encoder = nn.Sequential(
+            nn.Linear(140, 20),
+            nn.Sigmoid()
+            )
+        
+        self.mu = nn.Linear(20, 5)
+        self.log_var = nn.Linear(20, 5)
+
+        self.decoder = nn.Sequential(
+            nn.Linear(5, 20),
+            nn.Sigmoid(),
+            nn.Linear(20, 140)
+        )
+
+    def sampling(self, mu, log_var):
+        std = torch.exp(0.5 * log_var)
+        epslion = torch.randn_like(std)
+
+        return epslion.mul(std).add_(mu)
+
+    def forward(self, x):
+        x = self.encoder(x)
+        mu, log_var = self.mu(x), self.log_var(x)
+        z = self.sampling(mu, log_var)
+        out = self.decoder(z)
+        return out, mu, log_var
+
+
+
+
+if __name__ == "__main__":
+    dummy = torch.rand((1, 140))
+    model = VMD_VAE_DNN()
+
+    print()
+    torch.onnx.export(model, dummy, "./models/model.onnx", input_names=["signals"], output_names=["reconst_signals"])
+
+
+
+
+
