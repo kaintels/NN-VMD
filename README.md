@@ -26,6 +26,6 @@ Pkg.build("PyCall")
 ```./utils/util.py``` and ```./utils/preprocessing.jl``` and ```./models/model.py```
 
 ## Plan
-- [ ] VAE (Variational Auto Encoder)
+- [x] VAE (Variational Auto Encoder)
 - [ ] Graph neural nets + Shallow neural nets
-- [ ] Multi-task learning (e.g. decomposition and classification task)
+- [x] Multi-task learning (e.g. decomposition and classification task)

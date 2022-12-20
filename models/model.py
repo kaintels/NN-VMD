@@ -52,8 +52,19 @@ class VMD_VAE_DNN(nn.Module):
         out = self.decoder(z)
         return out, mu, log_var
 
+class Classifier(nn.Module):
+    def __init__(self) -> None:
+        super(Classifier, self).__init__()
 
+        self.layer1 = nn.Linear(140, 5)
+        self.flatten = nn.Flatten()
 
+    def forward(self, x):
+
+        x = self.flatten(x)
+        x = self.layer1(x)
+
+        return x
 
 if __name__ == "__main__":
     dummy = torch.rand((1, 140))
