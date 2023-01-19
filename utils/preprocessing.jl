@@ -1,3 +1,5 @@
+using Base.Threads
+
 using PyCall
 using VMD
 io = pyimport("scipy.io")
@@ -19,8 +21,8 @@ def data_load(path):
 
 function vmd_calculate(path, output_name)
     data = py"""data_load"""(path)
-    alpha = 2000;       # moderate bandwidth constraint
-    tau = 0;            # noise-tolerance (no strict fidelity enforcement)
+    α = 2000;       # moderate bandwidth constraint
+    τ = 0;            # noise-tolerance (no strict fidelity enforcement)
     K = 3;              # 3 modes
     tol = 1e-7;
     sample_frequency = 140;
@@ -30,11 +32,11 @@ function vmd_calculate(path, output_name)
     output_ch3 = []
 
     output = []
-    for i=1:1:length(data[:,1])
+    @threads for i ∈ 1:length(data[:,1])
 
         v = vmd(data[i, 1:140] ; 
-        alpha = alpha,
-        tau = tau,
+        alpha = α,
+        tau = τ,
         K = K,
         DC = false,
         init = 1,
