@@ -1,5 +1,6 @@
 import torch
 from torch.utils.data import TensorDataset
+import torch.nn.functional as F
 import random
 import numpy as np  
 import matplotlib.pyplot as plt  
@@ -8,7 +9,7 @@ import numpy as np
 from scipy.io import arff, loadmat
 from sklearn.model_selection import train_test_split
 from utils.util import seed_everything_th, weight_init_xavier_uniform
-from models.model import VMDNet, Classifier
+from models.model import VMDNet, Classifier, TaskLayer
 import subprocess
 
 EPOCH = 100
@@ -44,77 +45,104 @@ train_l_loader = torch.utils.data.DataLoader(dataset = TensorDataset(torch.Float
 test_l_loader = torch.utils.data.DataLoader(dataset = TensorDataset(torch.FloatTensor(input_s_ts), torch.LongTensor(input_l_ts)), batch_size = 32, shuffle = True)
 
 
-model1 = VMDNet()
-model2 = Classifier()
+model = TaskLayer()
 
-models_pm = list(model1.parameters())+list(model2.parameters())
-
-optimizer = torch.optim.Adam(models_pm, lr = 0.01, eps=1e-8, betas=(0.9, 0.999))
+optimizer = torch.optim.Adam(model.parameters(), lr = 0.001)
 
 loss_1 = torch.nn.MSELoss()
 loss_2 = torch.nn.CrossEntropyLoss()
 
 for i in range(EPOCH):
-    avg_cost = 0
+
     for _, data in enumerate(zip(train_s_loader, train_l_loader)):
         optimizer.zero_grad()
 
-        output1 = model1(data[0][0])
+        output1, output2 = model(data[0][0])
         loss1 = loss_1(output1, data[0][1])
-
-        output2 = model2(data[1][0])
         loss2 = loss_2(output2, data[1][1])
 
-        total_loss = loss1 + loss2
+        # weight = F.softmax(torch.randn(2), dim=-1)
+        # total_loss = (loss1 + loss2) * weight
 
-        total_loss.backward(retain_graph=True)
+        total_loss = (loss1 + loss2) / 2
+
+        total_loss.backward()
 
         optimizer.step()
-
     if i % 10 == 0:
         print("epoch : {0}, loss : {1}".format(i, total_loss.item()))
 
-# imf1_s = []
-# imf2_s = []
-# imf3_s = []
+# model1 = VMDNet()
+# model2 = Classifier()
 
-# imf_all = []
+# models_pm = list(model1.parameters())+list(model2.parameters())
 
-# model.eval()
-# with torch.no_grad(): 
-#     correct = 0
-#     total = 0
+# optimizer = torch.optim.Adam(models_pm, lr = 0.01, eps=1e-8, betas=(0.9, 0.999))
 
-#     for i, (datax, targetx) in enumerate(test_loader):
-#         out = model(datax)
+# loss_1 = torch.nn.MSELoss()
+# loss_2 = torch.nn.CrossEntropyLoss()
 
-#         imf_all.append(out.cpu().numpy())
-#         a = targetx.numpy()[0].reshape(140, 3)
-#         b = out.numpy()[0].reshape(140, 3)
+# for i in range(EPOCH):
+#     avg_cost = 0
+#     for _, data in enumerate(zip(train_s_loader, train_l_loader)):
+#         optimizer.zero_grad()
 
-#         imf1 = np.corrcoef(a[:, 0], b[:, 0])[0, 1]
-#         imf2 = np.corrcoef(a[:, 1], b[:, 1])[0, 1]
-#         imf3 = np.corrcoef(a[:, 2], b[:, 2])[0, 1]
+#         output1 = model1(data[0][0])
+#         loss1 = loss_1(output1, data[0][1])
 
-#         imf1_s.append(imf1)
-#         imf2_s.append(imf2)
-#         imf3_s.append(imf3)
+#         output2 = model2(data[1][0])
+#         loss2 = loss_2(output2, data[1][1])
 
-# print(np.mean(imf1_s))
-# print(np.mean(imf2_s))
-# print(np.mean(imf3_s))
-# print(np.std(imf1_s))
-# print(np.std(imf2_s))
-# print(np.std(imf3_s))
+#         total_loss = torch.norm(loss1 + loss2)
 
-# plt.figure()
-# plt.subplot(2,1,1)
-# plt.plot(a)
-# plt.title('Original signal')
-# plt.xlabel('time (s)')
-# plt.subplot(2,1,2)
-# plt.plot(b)
-# plt.title('Decomposed modes')
-# plt.xlabel('time (s)')
-# plt.tight_layout()
-# plt.show()
+#         total_loss.backward(retain_graph=True)
+
+#         optimizer.step()
+
+#     if i % 10 == 0:
+#         print("epoch : {0}, loss : {1}".format(i, total_loss.item()))
+
+# # imf1_s = []
+# # imf2_s = []
+# # imf3_s = []
+
+# # imf_all = []
+
+# # model.eval()
+# # with torch.no_grad(): 
+# #     correct = 0
+# #     total = 0
+
+# #     for i, (datax, targetx) in enumerate(test_loader):
+# #         out = model(datax)
+
+# #         imf_all.append(out.cpu().numpy())
+# #         a = targetx.numpy()[0].reshape(140, 3)
+# #         b = out.numpy()[0].reshape(140, 3)
+
+# #         imf1 = np.corrcoef(a[:, 0], b[:, 0])[0, 1]
+# #         imf2 = np.corrcoef(a[:, 1], b[:, 1])[0, 1]
+# #         imf3 = np.corrcoef(a[:, 2], b[:, 2])[0, 1]
+
+# #         imf1_s.append(imf1)
+# #         imf2_s.append(imf2)
+# #         imf3_s.append(imf3)
+
+# # print(np.mean(imf1_s))
+# # print(np.mean(imf2_s))
+# # print(np.mean(imf3_s))
+# # print(np.std(imf1_s))
+# # print(np.std(imf2_s))
+# # print(np.std(imf3_s))
+
+# # plt.figure()
+# # plt.subplot(2,1,1)
+# # plt.plot(a)
+# # plt.title('Original signal')
+# # plt.xlabel('time (s)')
+# # plt.subplot(2,1,2)
+# # plt.plot(b)
+# # plt.title('Decomposed modes')
+# # plt.xlabel('time (s)')
+# # plt.tight_layout()
+# # plt.show()
