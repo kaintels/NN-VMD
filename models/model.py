@@ -70,33 +70,39 @@ class TaskLayer(nn.Module):
     def __init__(self):
         super(TaskLayer, self).__init__()
 
-        self.conv1 = nn.Conv1d(1, 32, 3, 1, padding="same")
-        self.conv2 = nn.Conv1d(32, 64, 3, 1, padding="same")
+        self.conv1 = nn.Conv1d(1, 32, 3, 1, padding=1)
+        self.conv2 = nn.Conv1d(32, 64, 3, 1, padding=1)
+        self.conv3 = nn.Conv1d(64, 128, 3, 1, padding=1)
         self.flatten = nn.Flatten()
-        self.decomp = nn.Linear(8960, 420)
-        self.classify1 = nn.Linear(8960, 300)
+        self.maxpool = nn.MaxPool1d(2)
+        self.decomp1 = nn.Linear(2176, 1000)
+        self.decomp2 = nn.Linear(1000, 420)
+        self.classify1 = nn.Linear(2176, 300)
         self.classify2 = nn.Linear(300, 5)
 
     def forward(self, x):
-        x = self.conv1(x)
+        x = self.maxpool(self.conv1(x))
         x = torch.relu(x)
-        x = self.conv2(x)
+        x = self.maxpool(self.conv2(x))
+        x = torch.relu(x)
+        x = self.maxpool(self.conv3(x))
         x = torch.relu(x)
         x = self.flatten(x)
         class_x = self.classify1(x)
         class_x = self.classify2(class_x)
-        decomp_x = self.decomp(x)
+        decomp_x = self.decomp1(x)
+        decomp_x = self.decomp2(decomp_x)
         decomp_x = decomp_x.reshape(-1, 3, 140)
 
         return decomp_x, class_x
 
 
 if __name__ == "__main__":
-    dummy = torch.rand((1, 140))
-    model = VMD_VAE_DNN()
+    dummy = torch.rand((1, 1, 140))
+    model = TaskLayer()
 
-    print()
-    torch.onnx.export(model, dummy, "./models/model.onnx", input_names=["signals"], output_names=["reconst_signals"])
+    print(model(dummy))
+    torch.onnx.export(model, dummy, "./models/model.onnx", input_names=["signals"], output_names=["reconst_signals", "classification"])
 
 
 
