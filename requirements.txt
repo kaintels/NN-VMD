@@ -2,4 +2,5 @@ scipy
 numpy
 pandas
 scikit-learn
-torch==1.11.0
+matplotlib
+julia
