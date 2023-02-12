@@ -55,12 +55,12 @@
 
 2. Execute ```docker build -t nn-vmd .```
 
-3. Execute ```docker run -it --gpus all nn-vmd:latest bash train.sh```(default : MTL)
+3. Execute ```docker run -it --gpus all --name nn-vmd nn-vmd:latest bash train.sh```(default : MTL)
 
 4. Option Execute
 
 ```
-docker start (required)
+docker start nn-vmd (required)
 docker exec -it nn-vmd bash train.sh cnn
 docker exec -it nn-vmd bash train.sh vae
 ```
