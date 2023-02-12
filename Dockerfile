@@ -25,7 +25,7 @@ RUN python julia_setting.py
 
 RUN echo "##########################"
 RUN echo "data processing finished. enjoy."
-RUN echo "please EXECUTE 'docker run -it --gpus all nn-vmd:latest bash train.sh'"
+RUN echo "please EXECUTE 'docker run -it --gpus all --name nn-vmd nn-vmd:latest bash train.sh'"
 RUN echo "you can modify train.sh"
 RUN echo "##########################"
 
