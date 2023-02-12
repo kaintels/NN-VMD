@@ -18,10 +18,16 @@ RUN mkdir /opt/julia-${JULIA_VERSION} && \
 RUN ln -fs /opt/julia-*/bin/julia /usr/local/bin/julia
 
 COPY ./ ./
-RUN sh data.sh
+RUN bash data.sh
 RUN pip install -r requirements.txt
 RUN julia requirements.jl
 RUN python julia_setting.py
+
+RUN echo "##########################"
+RUN echo "data processing finished. enjoy."
+RUN echo "please EXECUTE 'docker run -it --gpus all nn-vmd:latest bash train.sh'"
+RUN echo "you can modify train.sh"
+RUN echo "##########################"
 
 WORKDIR /workspace
 
