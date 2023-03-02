@@ -4,6 +4,22 @@
 
 - Python 3.7+
 - Julia 1.7+
+- IF use docker gpu, you should install ```nvidia-container-toolkit``` and ```nvidia-cuda-toolkit```
+
+```
+sudo apt install nvidia-cuda-toolkit
+```
+
+```
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+
+sudo /etc/init.d/docker restart
+```
+
 
 ## How to use (Windows)
 <details>
@@ -55,7 +71,11 @@
 
 2. Execute ```docker build -t nn-vmd .```
 
-3. Execute ```docker run -it --gpus all --name nn-vmd nn-vmd:latest bash train.sh```(default : MTL)
+3. Execute **GPU version**
+   ```docker run -it --gpus all --name nn-vmd nn-vmd:latest bash train.sh```(default : MTL)
+
+   Execute **CPU version**
+   ```docker run -it --name nn-vmd nn-vmd:latest bash train.sh```
 
 4. Option Execute
 
