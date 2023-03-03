@@ -4,10 +4,10 @@
 
 - Python 3.7+
 - Julia 1.7+
-- IF use docker gpu, you should install ```nvidia-container-toolkit``` and ```nvidia-cuda-toolkit```
+- IF use docker gpu, you should install ```nvidia-cuda-toolkit``` and ```nvidia-container-toolkit```
 
 ```
-sudo apt install nvidia-cuda-toolkit
+sudo apt install -y nvidia-cuda-toolkit # nvidia-cuda-toolkit installation
 ```
 
 ```
@@ -15,7 +15,7 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
-sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit # nvidia-container-toolkit installation
 
 sudo /etc/init.d/docker restart
 ```
