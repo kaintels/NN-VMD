@@ -67,17 +67,19 @@ sudo /etc/init.d/docker restart
 <details>
 <div markdown="1">
 
-1. if Docker turn off, Execute ```sudo service docker start```
+1. ECG5000 Data download from ```timeseriesclassification``` Execute ```sh data.sh```
 
-2. Execute ```docker build -t nn-vmd .```
+2. if Docker turn off, Execute ```sudo service docker start```
 
-3. Execute **GPU version**
+3. Execute ```docker build -t nn-vmd .```
+
+4. Execute **GPU version**
    ```docker run -it --gpus all --name nn-vmd nn-vmd:latest bash train.sh```(default : MTL)
 
    Execute **CPU version**
    ```docker run -it --name nn-vmd nn-vmd:latest bash train.sh```
 
-4. Option Execute
+5. Option Execute
 
 ```
 docker start nn-vmd (required)
