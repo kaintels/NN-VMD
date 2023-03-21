@@ -4,7 +4,7 @@
 
 - Python 3.7+
 - Julia 1.7+
-- IF use docker gpu, you should install ```nvidia-cuda-toolkit``` and ```nvidia-container-toolkit```
+- If you use docker gpu, you should install ```nvidia-cuda-toolkit``` and ```nvidia-container-toolkit```
 
 ```
 sudo apt install -y nvidia-cuda-toolkit # nvidia-cuda-toolkit installation
@@ -23,6 +23,7 @@ sudo /etc/init.d/docker restart
 
 ## How to use (Windows)
 <details>
+<summary>More...</summary>
 <div markdown="1">
 
 1. ECG5000 Data download from ```timeseriesclassification``` Execute ```./data.bat```
@@ -33,7 +34,7 @@ sudo /etc/init.d/docker restart
 
 4. Execute ```python julia_setting.py```
 
-5. Execute python file ```python main.py```
+5. Execute python file ```python train.py```
 
 4. You can modify VMD setting or AI model via 
 
@@ -44,6 +45,7 @@ sudo /etc/init.d/docker restart
 
 ## How to use (Linux)
 <details>
+<summary>More...</summary>
 <div markdown="1">
 
 1. ECG5000 Data download from ```timeseriesclassification``` Execute ```sh data.sh```
@@ -54,7 +56,7 @@ sudo /etc/init.d/docker restart
 
 4. Execute ```python julia_setting.py```
 
-5. Execute python file ```python main.py```
+5. Execute python file ```python train.py```
 
 4. You can modify VMD setting or AI model via 
 
@@ -65,6 +67,7 @@ sudo /etc/init.d/docker restart
 
 ## How to use (Docker)
 <details>
+<summary>More...</summary>
 <div markdown="1">
 
 1. ECG5000 Data download from ```timeseriesclassification``` Execute ```sh data.sh```
