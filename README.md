@@ -98,3 +98,15 @@ docker exec -it nn-vmd bash train.sh vae
 - [x] VAE (Variational Auto Encoder)
 - [ ] Graph neural nets + Shallow neural nets
 - [x] Multi-task learning (e.g. decomposition and classification task)
+
+## Citation
+
+```
+@inproceedings{han2022ai,
+  title={AI model based variational mode decomposition using signal data},
+  author={Han, Seungwoo},
+  journal={proceedings of symposium of the korean institute of communications and information sciences},
+  pages={1362--1363},
+  year={2022}
+}
+```
