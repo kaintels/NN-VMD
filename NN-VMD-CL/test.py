@@ -4,7 +4,7 @@ import torch.nn.functional as F
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from utils.util import seed_everything_th, weight_init_xavier_uniform, TrainDataset, TestDataset
+from utils.util import seed_everything_th, TrainDataset, TestDataset
 from models.model import create_encoder, gen_mode
 from scipy.io import arff, loadmat
 
