@@ -5,3 +5,4 @@ scikit-learn
 matplotlib
 julia
 info-nce-pytorch
+mne
