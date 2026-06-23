@@ -110,3 +110,13 @@ docker exec -it nn-vmd bash train.sh vae
   year={2022}
 }
 ```
+
+```
+@inproceedings{han2024ai,
+  title={The design of a role deep learning model for contrastive learning-based variational mode decomposition in arrhythmia detection},
+  author={Han, Seungwoo and Sunarya, Unang},
+  journal={proceedings of korea artificial intelligence conference},
+  pages={72--73},
+  year={2024}
+}
+```
