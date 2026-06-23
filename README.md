@@ -96,6 +96,7 @@ docker exec -it nn-vmd bash train.sh vae
 
 ## Plan
 - [x] VAE (Variational Auto Encoder)
+- [x] [Contrastive learning](https://github.com/kaintels/NN-VMD/tree/main/NN-VMD-CL)
 - [ ] Graph neural nets + Shallow neural nets
 - [x] Multi-task learning (e.g. decomposition and classification task)
 
